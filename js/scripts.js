@@ -1,33 +1,23 @@
 $(document).ready(function(){
-  $("#prime-form").submit(function(event){
-    event.preventDefault();
-    var numberInput = parseInt($("#number").val());
-    var arrayNumbers = [];
-    var prime = 2;
-    var index = 0;
-
-    for(var i = numberInput; i >= 2; i --){
-        arrayNumbers.push(i);
+  var primes = [];
+  function isPrime(x){
+    var prime = true;
+    for(var i=2; i<=Math.sqrt(x);i++){
+      if(x % i === 0){
+        prime = false;
+      }
     }
-
-    while(prime != numberInput){
-      arrayNumbers.forEach(function(number){
-        index ++;
-        if((number % prime) == 0) {
-          arrayNumbers.splice(index);
-        }
-      });
+    if(prime){
+      primes.push(x);
     }
+  };
+$("#prime-form").submit(function(event){
+  event.preventDefault();
+  var numberInput = $("#number").val();
+  for(var j = 3; j <= numberInput; j++){
+    isPrime(j);
   }
-    // arrayNumbers.forEach(function(number){
-    //   if((number % prime) == 0){
-    //     arrayNumbers.splice(index);
-    //     index++;
-    //
-    //   }else{
-    //     index++;
-    //   }
-    // });
-    console.log(arrayNumbers);
+  $("#output").text(primes);
+  primes = [];
   });
 });
